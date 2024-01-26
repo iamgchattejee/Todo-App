@@ -1,0 +1,29 @@
+.todo-card{
+
+    width:300px;
+    margin-top: 70px;
+    box-shadow:  0px 0px 10px rgb(107, 96, 96);
+    border-radius: 25px;
+    padding-top: 20px;
+    background-color:white;
+}
+.todo-card-p{
+    text-align:justify;
+    text-justify:inter-word;
+}
+.card-icons{
+    font-size: 15px;
+    
+}
+.del{
+    font-size: 19px;
+    color: red;
+}
+.card-icon-head{
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.card-icon-head:hover{
+    box-shadow:  0px 0px 10px rgb(107, 96, 96);
+    border-radius: 25px;
+}

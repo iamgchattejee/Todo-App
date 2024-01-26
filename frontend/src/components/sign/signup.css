@@ -1,0 +1,16 @@
+.signup{
+    background-image: url("../../assets/marissa-grootes-ck0i9Dnjtj0-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 90vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.submit-btn{
+    border-radius: 55px;
+    color:rgb(190, 209, 209) !important;
+    font-weight: bold;
+}

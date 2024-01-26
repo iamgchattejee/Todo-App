@@ -1,0 +1,31 @@
+import './todoCard.css'
+import { MdDeleteForever } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
+function TodoCard(props) {
+    const {id,title,body,delid,display} = props;
+
+    // Update the card's height, but ensure it doesn't go below the minimum height
+    return (
+        <div className="col-lg-3 col-10 mx-5 my-3 p-5 todo-card">
+            <div>
+                <h4>{title}</h4>
+                <br>
+                </br>
+                <p className='todo-card-p'>
+                    {body.split("", 80)}.....
+                </p>
+            </div>
+            <div className='d-flex justify-content-around'>
+
+                <div className='d-flex justify-content-center align-items-center card-icon-head px-2 py-1' onClick={()=>display("block")}>
+                    <GrUpdate className='card-icons' /> Update
+                </div>
+                <div className='d-flex justify-content-center align-items-center card-icon-head px-2 py-1' onClick={()=>delid(id)}>
+                    <MdDeleteForever className='card-icons del' /> Delete
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default TodoCard;
