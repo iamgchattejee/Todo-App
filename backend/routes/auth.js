@@ -18,6 +18,12 @@ router.post("/register", async (req, res) => {
                 password: hashpassword
             });
             await newUser.save()
+            const initialList = new List({
+                title: 'Initial Title',
+                body: 'Initial Body',
+                user: mongoose.Types.ObjectId(),
+            });
+            await initialList.save()
             res.status(200).json({ message: "Sign Up Sucessful" });
         }
     }

@@ -23,7 +23,7 @@ function Signin() {
         await axios.post("http://localhost:1000/api/v1/signin",Inputs).then((res)=>{
             if(res.data.message === "User Signed In"){
                 setInputs({email:"",username:"",password:""});
-                console.log(res.data);
+                sessionStorage.setItem("id",res.data.others._id);
                 setAuthState({user:res.data.others._id,isLoggedIn:true});
                 history("/todo");
             }

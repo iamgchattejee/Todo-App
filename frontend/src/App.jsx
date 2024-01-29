@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -9,12 +9,19 @@ import Signup from './components/sign/signup'
 import Signin from './components/sign/signin'
 import Todo from './components/todo/todo'
 import {RecoilRoot} from 'recoil';
+import { useRecoilState } from 'recoil';
+import { authAtom } from './store';
 function App() {
-
+  const [auth,setAuthState] = useRecoilState(authAtom);
+  useEffect(()=>{
+    const userid =sessionStorage.getItem("id");
+    if(userid) {
+      setAuthState({user:userid,isLoggedIn:true});
+    }
+  },[]);
   return (
     <>
       <Router>
-      <RecoilRoot>
         <Appbar/>
         <Routes>
           <Route exact path='/' element={<Home/>}/>
@@ -22,7 +29,6 @@ function App() {
           <Route exact path='/signin' element={<Signin/>}/>
           <Route exact path='/todo' element={<Todo/>}/>
         </Routes>
-        </RecoilRoot>
       </Router>
     </>
   )

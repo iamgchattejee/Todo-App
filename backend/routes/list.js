@@ -1,26 +1,29 @@
 const router = require("express").Router();
 const User = require("../models/user");
 const List = require("../models/list");
-
+const mongoose = require('mongoose');
 
 router.post("/addTask",async (req,res)=>{
     try{
-        const {title,body,email} = req.body;
-        const existingUser =await User.findOne({email});
+        const {title,body,id} = req.body;
+        const existingUser =await User.findById(id);
         if(existingUser){
             const newList = new List({
-                title,
-                body, 
+                title:title,
+                body:body, 
                 user: existingUser
             });
             await newList.save().then(() => res.status(200).json(newList));
+            console.log(newList);
             existingUser.list.push(newList);
             existingUser.save();
 
         }
     }
     catch(error){
-
+        console.log(error);
+        res.status(200).json({error: error});
+        res.status(200).json({message:"Server Error"});
     }
 });
 
@@ -28,24 +31,22 @@ router.post("/addTask",async (req,res)=>{
 
 router.put("/updateTask/:id",async (req,res)=>{
     try{
-        const {title,body,email} = req.body;
-        const existingUser =await User.findOne({email});
-        if(existingUser){
-            await List.findByIdAndUpdate(req.params.id,{title,body});
-            List.save().then(() => res.status(200).json({message:"Task Updated"}));
-        };
+        const {title,body} = req.body;
+        await List.findByIdAndUpdate(req.params.id,{title,body});
+        List.save().then(() => res.status(200).json({message:"Task Updated"}));
+       
     }
     catch(error){
-        console.log(error);
+        res.status(200).json({message:"Server Error"});
     }
 });
 
 
 router.delete("/deleteTask/:id",async (req,res)=>{
     try{
-        const {email} = req.body;
-        const existingUser =await User.findOneAndUpdate(
-            {email},
+        const {id} = req.body;
+        const existingUser =await User.findByIdAndUpdate(
+            id,
             {$pull:{list:req.params.id}},
             { new: true }
             );
@@ -54,7 +55,7 @@ router.delete("/deleteTask/:id",async (req,res)=>{
         };
     }
     catch(error){
-        console.log(error);
+        res.status(200).json({message:"Server Error"});
     }
 });
 
@@ -66,11 +67,11 @@ router.get("/getTask/:id",async (req,res)=>{
             res.status(200).json({list:existingTasks});
         }
         else{
-            res.status(200).json({message:"No tasks"});
+            res.status(200).json({list:[]});
         };
     }
     catch(error){
-        console.log(error);
+        res.status(200).json({message:"Server Error"});
     }
 });
 

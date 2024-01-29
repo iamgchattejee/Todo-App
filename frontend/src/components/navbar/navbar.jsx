@@ -11,9 +11,9 @@ function Appbar() {
   const history = useNavigate();
   const handleLogout = () => {
     setAuthState({ user: '', isLoggedIn: false });
+    sessionStorage.clear("id");
     history("/");
   };
-  console.log(auth);
   const isLoggedIn = auth.isLoggedIn;
   return (
     <div>
@@ -28,7 +28,7 @@ function Appbar() {
             <>
               <Nav.Link href="/signup" className='user-link'>Sign Up</Nav.Link>
               <Nav.Link href="/signin" className='user-link'>Sign In</Nav.Link>
-              <Nav.Link href="/todo" className='user-link'>Todo</Nav.Link>
+              {/* <Nav.Link href="/todo" className='user-link'>Todo</Nav.Link> */}
             </>}
             {isLoggedIn && 
             <>
